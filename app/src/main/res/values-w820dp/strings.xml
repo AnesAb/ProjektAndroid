@@ -1,12 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">test</string>
 
-    <string name="startSida">Välkommen!</string>
+    <string name="startSida">Startsida</string>
     <string name="sida_2">Sida 2</string>
     <string name="sida_3">Sida 3</string>
 
     <string name="action_settings">Settings</string>
-    <string name="btn_sida2">Fortsätt</string>
+    <string name="btn_sida2">Sida2 knapp</string>
     <string name="sida3_btnTxt">Till sida 3</string>
 
     <string name="swipe_title1">Sida 1 på swipe</string>
@@ -14,9 +15,4 @@
     <string name="swipe_title3">Sida 3 på swipe</string>
     <string name="camera_title">kamera</string>
     <string name="kamera">kamera</string>
-
-
-
-
-
 </resources>

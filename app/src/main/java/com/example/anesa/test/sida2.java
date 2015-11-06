@@ -2,19 +2,21 @@ package com.example.anesa.test;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
-
-public class MainActivity extends Activity {
+/**
+ * Created by Loso on 2015-11-04.
+ */
+public class sida2 extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.sida2);
     }
 
     @Override
@@ -39,14 +41,20 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onBtnTillFlip(View view) {
+        Intent getSi = new Intent (this, sida3.class);
 
-    //metod knapp
-
-    public void onBtn2(View view) {
-        Intent getBookScreenIntent = new Intent (this, sida2.class);
-
-        startActivity(getBookScreenIntent);
+        startActivity(getSi);
 
     }
+
+    public void onBtnKamera(View view) {
+        Intent getSi = new Intent (this, kamera.class);
+
+        startActivity(getSi);
+
+    }
+
+
 
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView android:text="@string/sida_2" android:layout_width="wrap_content"
+    android:textSize="44sp"
+    android:layout_height="wrap_content"
+    android:id="@+id/textView_StartSida"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sida3_btnTxt"
+        android:id="@+id/button2"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onBtnTillFlip"
+        android:layout_marginBottom="37dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/ratingBar"
+        android:layout_alignEnd="@+id/ratingBar" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_above="@+id/button2"
+        android:layout_centerHorizontal="true"
+
+        />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/mmm"
+        android:layout_below="@+id/textView_StartSida"
+        android:layout_centerHorizontal="true"
+
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/kamera"
+        android:id="@+id/button3"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onBtnKamera"
+        android:layout_below="@+id/ratingBar"
+        android:layout_alignLeft="@+id/ratingBar"
+        android:layout_alignStart="@+id/ratingBar" />
+
+
+</RelativeLayout>
