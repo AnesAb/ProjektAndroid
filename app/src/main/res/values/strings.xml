@@ -18,5 +18,20 @@
 
 
 
+    <string name="email">Email</string>
+    <string name="password">Lösenord</string>
+    <string name="hint_name">Förnamn och efternamn</string>
+    <string name="login_btn">LOGGA IN</string>
+    <string name="btn_register">REGISTERA DIG</string>
+    <string name="reg_btn">Inte medlem? Registrera dig nu.</string>
+    <string name="btn_link_to_login">Är du redan medlem? Logga in här.</string>
+    <string name="welcome">Välkommen!</string>
+    <string name="logout_btn">LOGGA UT</string>
+    <string name="name">Fullname</string>
+    <string name="err_alla_falt">Vänligen fyll i alla fält</string>
+    <string name="msg_logga_in">Loggar in ...</string>
+    <string name="reg_lyckad">Registrering lyckad. Du kan nu logga in!</string>
+
+
 
 </resources>
