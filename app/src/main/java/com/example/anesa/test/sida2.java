@@ -6,17 +6,39 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.HashMap;
+
+
+import camera.C_Activity;
+import helper.SQLiteHandler;
+import helper.SessionManager;
 
 /**
  * Created by Loso on 2015-11-04.
  */
 public class sida2 extends Activity {
 
+    private TextView txtName;
+    private TextView txtUID;
+
+    private SQLiteHandler db;
+    private SessionManager session;
+
+
+    private TextView txtNameGet;
+    private TextView txtUIDGet;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sida2);
+
+
+
+
     }
 
     @Override
@@ -49,7 +71,7 @@ public class sida2 extends Activity {
     }
 
     public void onBtnKamera(View view) {
-        Intent getSi = new Intent (this, kamera.class);
+        Intent getSi = new Intent (this, C_Activity.class);
 
         startActivity(getSi);
 

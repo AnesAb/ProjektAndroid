@@ -6,9 +6,7 @@ package com.example.anesa.test;
 import activity.LoginActivity;
 import helper.SQLiteHandler;
 import helper.SessionManager;
-
 import java.util.HashMap;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,15 +63,14 @@ public class loggaUt extends Activity {
     }
 
     /**
-     * Logging out the user. Will set isLoggedIn flag to false in shared
-     * preferences Clears the user data from sqlite users table
+     * Loggar ut användare genom att sätta session till false
+     *
      * */
     private void logoutUser() {
         session.setLogin(false);
-
         db.deleteUsers();
 
-        // Launching the login activity
+        // Startar login skärm
         Intent intent = new Intent(loggaUt.this, LoginActivity.class);
         startActivity(intent);
         finish();

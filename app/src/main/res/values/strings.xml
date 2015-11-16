@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">test</string>
+    <string name="app_name">EatWit</string>
 
     <string name="startSida">Välkommen!</string>
     <string name="sida_2">Sida 2</string>
@@ -30,7 +30,22 @@
     <string name="name">Fullname</string>
     <string name="err_alla_falt">Vänligen fyll i alla fält</string>
     <string name="msg_logga_in">Loggar in ...</string>
-    <string name="reg_lyckad">Registrering lyckad. Du kan nu logga in!</string>
+    <string name="reg_lyckades">Registrering lyckad. Du kan nu logga in!</string>
+
+
+    <string name="pic_save">Bild sparad!</string>
+    <string name="save_btn">Spara</string>
+
+    <string-array name="array_typ_maltid">
+        <item>Huvudrätt</item>
+        <item>Lunch</item>
+        <item>Efterrätt</item>
+        <item>Mellanmål</item>
+        <item>Sallad</item>
+    </string-array>
+
+
+
 
 
 

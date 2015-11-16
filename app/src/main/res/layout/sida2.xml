@@ -34,16 +34,6 @@
 
         />
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="300dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/mmm"
-        android:layout_below="@+id/textView_StartSida"
-        android:layout_centerHorizontal="true"
-
-        />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

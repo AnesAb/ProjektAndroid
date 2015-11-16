@@ -12,6 +12,11 @@ public class AppConfig {
 
         // Server user register url
         public static String URL_REGISTER = "http://eatwit.se/android_login_api/register.php";
+
+        // Server recept register url
+    public static String URL_RECEPT = "http://eatwit.se/android_login_api/recept.php";
+
+
     }
 
 

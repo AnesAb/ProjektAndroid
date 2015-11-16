@@ -123,7 +123,8 @@ public class RegisterActivity extends Activity {
                 Log.d(TAG, "Register Response: " + response.toString());
                 hideDialog();
 
-                try { //försöker skapa ett JSON objekt
+                //försöker skapa ett JSON objekt
+                try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
                     if (!error) {
@@ -139,7 +140,7 @@ public class RegisterActivity extends Activity {
                         // lägger till rad med användare i databas
                         db.addUser(name, email, uid, created_at);
 
-                        Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), R.string.reg_lyckades, Toast.LENGTH_LONG).show();
 
                         // startar inloggning aktivitet
                         Intent intent = new Intent(

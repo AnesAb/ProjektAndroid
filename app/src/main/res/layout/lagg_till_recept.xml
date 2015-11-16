@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Gör så här"
+        android:id="@+id/textView_recept_tillagning"
+        android:layout_gravity="center_vertical"
+        android:layout_alignBottom="@+id/editText_recept_tillagning"
+        android:layout_alignLeft="@+id/textView_rubrik_portioner"
+        android:layout_alignStart="@+id/textView_rubrik_portioner" />
+
+    <EditText
+        android:layout_width="213dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_recept_ingredienser"
+        android:hint="Ingredienser"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/spinner_recept_portioner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="254dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:hint="Fyll i ditt recept namn här"
+        android:textColorHint="@color/color_green_logo"
+        android:id="@+id/editText_recept_namn"
+        android:layout_below="@+id/textView_hamta_Uid"
+        android:layout_gravity="center_vertical"
+        android:layout_alignLeft="@+id/editText_recept_ingredienser"
+        android:layout_alignStart="@+id/editText_recept_ingredienser"
+        android:layout_alignRight="@+id/editText_recept_ingredienser"
+        android:layout_alignEnd="@+id/editText_recept_ingredienser" />
+
+    <EditText
+        android:layout_width="143dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editText_recept_tillagning"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/editText_recept_ingredienser"
+        android:layout_alignLeft="@+id/editText_recept_ingredienser"
+        android:layout_alignStart="@+id/editText_recept_ingredienser"
+        android:layout_alignRight="@+id/editText_recept_ingredienser"
+        android:layout_alignEnd="@+id/editText_recept_ingredienser" />
+
+    <EditText
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editText_recept_beskrining"
+        android:textSize="12sp"
+        android:hint="Kort besktivning av receptet här"
+        android:layout_below="@+id/editText_recept_namn"
+        android:layout_alignLeft="@+id/editText_recept_namn"
+        android:layout_alignStart="@+id/editText_recept_namn"
+        android:layout_alignRight="@+id/editText_recept_namn"
+        android:layout_alignEnd="@+id/editText_recept_namn" />
+
+    <EditText
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_recept_tid"
+        android:hint="tid"
+        android:layout_below="@+id/editText_recept_beskrining"
+        android:layout_alignRight="@+id/editText_recept_beskrining"
+        android:layout_alignEnd="@+id/editText_recept_beskrining"
+        android:layout_alignLeft="@+id/editText_recept_beskrining"
+        android:layout_alignStart="@+id/editText_recept_beskrining" />
+
+
+    <Button
+        android:id="@+id/btn_recept_SparaRecept"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:textSize="12sp"
+        android:background="@color/color_green_logo"
+        android:text="SPARA RECEPT"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/textView_receptnamn_rubrik"
+        android:layout_alignStart="@+id/textView_receptnamn_rubrik"
+        android:layout_marginBottom="20dp" />
+
+
+    <TextView
+        android:layout_width="213dp"
+        android:layout_height="wrap_content"
+        android:hint="namnEtt"
+        android:id="@+id/textView_hamta_Name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="uidEtT"
+        android:id="@+id/textView_hamta_Uid"
+        android:layout_below="@+id/textView_hamta_Name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_recept_typ"
+        android:textSize="10sp"
+
+        android:layout_below="@+id/textView_rubrik_tid"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="22dp"
+        android:layout_alignLeft="@+id/spinner_recept_portioner"
+        android:layout_alignStart="@+id/spinner_recept_portioner" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_recept_portioner"
+        android:layout_below="@+id/spinner_recept_typ"
+        android:layout_alignLeft="@+id/editText_recept_ingredienser"
+        android:layout_alignStart="@+id/editText_recept_ingredienser"
+        android:layout_marginTop="21dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Recept Namn"
+        android:id="@+id/textView_receptnamn_rubrik"
+        android:layout_above="@+id/editText_recept_beskrining"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Kort Beskrivning"
+        android:textSize="12dp"
+        android:id="@+id/textView_beskrivning_rubrik"
+        android:layout_above="@+id/editText_recept_tid"
+        android:layout_alignLeft="@+id/textView_receptnamn_rubrik"
+        android:layout_alignStart="@+id/textView_receptnamn_rubrik"
+        android:layout_toStartOf="@+id/btn_recept_SparaRecept"
+        android:layout_alignRight="@+id/textView_receptnamn_rubrik"
+        android:layout_alignEnd="@+id/textView_receptnamn_rubrik" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Tidsåtkomst"
+        android:id="@+id/textView_rubrik_tid"
+        android:layout_alignBottom="@+id/editText_recept_tid"
+        android:layout_alignLeft="@+id/textView_beskrivning_rubrik"
+        android:layout_alignStart="@+id/textView_beskrivning_rubrik" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Typ"
+        android:id="@+id/textView_rubrik_typ"
+        android:layout_alignTop="@+id/spinner_recept_typ"
+        android:layout_alignLeft="@+id/textView_rubrik_tid"
+        android:layout_alignStart="@+id/textView_rubrik_tid"
+        android:layout_toLeftOf="@+id/spinner_recept_typ"
+        android:layout_toStartOf="@+id/spinner_recept_typ" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Portioner"
+        android:id="@+id/textView_rubrik_portioner"
+        android:layout_alignTop="@+id/spinner_recept_portioner"
+        android:layout_alignLeft="@+id/textView_rubrik_typ"
+        android:layout_alignStart="@+id/textView_rubrik_typ"
+        android:layout_alignRight="@+id/textView_rubrik_typ"
+        android:layout_alignEnd="@+id/textView_rubrik_typ" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ingredienser"
+        android:id="@+id/textView_rubrik_ingredienser"
+        android:layout_above="@+id/editText_recept_tillagning"
+        android:layout_alignLeft="@+id/textView_rubrik_portioner"
+        android:layout_alignStart="@+id/textView_rubrik_portioner"
+        android:layout_alignTop="@+id/editText_recept_ingredienser"
+        android:layout_alignRight="@+id/textView_recept_tillagning"
+        android:layout_alignEnd="@+id/textView_recept_tillagning" />
+
+    <Button
+        android:id="@+id/btn_recept_ta_bild"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:textSize="12sp"
+        android:background="@color/color_green_logo"
+        android:text="TA BILD"
+        android:textColor="@color/white"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_alignTop="@+id/btn_recept_SparaRecept"
+        android:layout_toRightOf="@+id/textView_hamta_Name"
+        android:layout_toEndOf="@+id/textView_hamta_Name" />
+
+
+</RelativeLayout>
