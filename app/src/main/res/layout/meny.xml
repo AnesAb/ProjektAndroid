@@ -1,107 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="200dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/logo_eatwit_small"
-        android:layout_marginBottom="371dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="0dp" >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome"
-        android:textSize="20dp"
-        android:layout_marginTop="23dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView3" />
+        android:textSize="18dp"
+        android:id="@+id/textView3"/>
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:padding="10dp"
         android:textColor="@color/lbl_name"
-        android:textSize="24dp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3" />
+        android:textSize="18dp"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="swipe"
-        android:id="@+id/button4"
-        android:layout_marginBottom="149dp"
-        android:onClick="onBtnTillFlip"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/name"
-        android:layout_toStartOf="@+id/name" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="kamera"
-        android:id="@+id/button5"
-        android:onClick="onBtnKamera"
-        android:layout_alignTop="@+id/button4"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3"
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sida2"
-        android:id="@+id/button6"
-        android:layout_below="@+id/button5"
-        android:layout_alignLeft="@+id/button4"
-        android:layout_alignStart="@+id/button4"
-        android:layout_marginTop="28dp"
-        android:onClick="onBtn2"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
         android:text="logga ut"
         android:id="@+id/button7"
-        android:layout_alignBottom="@+id/button6"
-        android:layout_alignLeft="@+id/button5"
-        android:layout_alignStart="@+id/button5"
         android:onClick="onBtnLogOut"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:id="@+id/imageView3"
+        android:background="@drawable/food"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <SearchView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Lägg till recept"
+        android:background="@drawable/rounded_corners_no_radius"
+        android:id="@+id/searchView"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp" />
+
+    <ImageButton
+        android:layout_width="155dp"
+        android:layout_height="70dp"
         android:id="@+id/btn_lagg_till_recept"
         android:onClick="onBtnAddRecept"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/button4"
-        android:layout_alignStart="@+id/button4" />
+        android:background="@drawable/button_add_recepie"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/searchView" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Visa Recept"
-        android:id="@+id/btn_visa_recept"
-        android:onClick="onBtnShowRecept"
-        android:layout_alignBottom="@+id/btn_lagg_till_recept"
+    <ImageButton
+        android:layout_width="155dp"
+        android:layout_height="70dp"
+        android:background="@drawable/button_random_recepie"
+        android:id="@+id/RandomRecipe"
+        android:layout_below="@+id/btn_lagg_till_recept"
+        android:layout_alignLeft="@+id/btn_lagg_till_recept"
+        android:layout_alignStart="@+id/btn_lagg_till_recept"
+        android:layout_marginTop="15dp" />
+
+    <ImageButton
+        android:layout_width="155dp"
+        android:layout_height="70dp"
+        android:id="@+id/PlanMeal"
+        android:onClick="onBtn2"
+        android:background="@drawable/button_food_calendar"
+        android:layout_alignTop="@+id/RandomRecipe"
         android:layout_toRightOf="@+id/btn_lagg_till_recept"
-        android:layout_toEndOf="@+id/btn_lagg_till_recept"
-        android:layout_marginLeft="29dp"
-        android:layout_marginStart="29dp" />
+        android:layout_toEndOf="@+id/btn_lagg_till_recept" />
+
+    <ImageButton
+        android:layout_width="155dp"
+        android:layout_height="70dp"
+        android:onClick="onBtnShowRecept"
+        android:id="@+id/ShowMyRecipe"
+        android:background="@drawable/button_my_recepies"
+        android:layout_alignTop="@+id/btn_lagg_till_recept"
+        android:layout_alignLeft="@+id/PlanMeal"
+        android:layout_alignStart="@+id/PlanMeal" />
 
 
 </RelativeLayout>

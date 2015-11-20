@@ -14,7 +14,6 @@ import activity.RegisterActivity;
 import activity.RegisterRecept;
 import camera.C_Activity;
 import helper.SQLiteHandler;
-import helper.SQLiteHandlerRecept;
 import helper.SessionManager;
 
 

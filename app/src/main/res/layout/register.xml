@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@color/bg_register"
+    android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp" >
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="230dp"
+        android:id="@+id/imageView2"
+        android:background="@drawable/logo_eatwit"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -17,53 +25,56 @@
 
         <EditText
             android:id="@+id/name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/rounded_corner"
             android:hint="@string/hint_name"
             android:padding="10dp"
             android:singleLine="true"
             android:inputType="textCapWords"
             android:textColor="@color/input_register"
-            android:textColorHint="@color/input_register_hint" />
+            android:textColorHint="@color/input_register_hint"
+            android:layout_gravity="center_horizontal" />
 
         <EditText
             android:id="@+id/email"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_corner"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_register"
-            android:textColorHint="@color/input_register_hint" />
+            android:textColorHint="@color/input_register_hint"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal" />
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
+            android:background="@drawable/rounded_corner"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_register"
-            android:textColorHint="@color/input_register_hint" />
+            android:textColorHint="@color/input_register_hint"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal" />
 
 
 
         <Button
             android:id="@+id/btn_Register"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@color/color_green_logo"
-            android:text="@string/btn_register"
-            android:textColor="@color/white" />
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/register_button_green"
+            android:layout_gravity="center_horizontal" />
 
 
 
@@ -71,12 +82,13 @@
             android:id="@+id/btn_LoginScreen"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
+            android:layout_marginTop="10dip"
             android:background="@null"
             android:text="@string/btn_link_to_login"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textColor="@color/color_green_logo"
+            android:textSize="15dp"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
 </LinearLayout>

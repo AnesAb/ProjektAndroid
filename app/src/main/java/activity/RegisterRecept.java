@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +25,9 @@ import com.example.anesa.test.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import app.AppConfig;
@@ -35,8 +38,11 @@ import helper.SessionManager;
 
 
 
-public class RegisterRecept extends Activity {
+public class RegisterRecept extends Activity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = RegisterRecept.class.getSimpleName();
+
+    private EditText editTextReceptIngredienser;
+    private ListView listViewIngredientList;
 
     private EditText inputReceptNamn;
     //private EditText inputTyp;
@@ -50,14 +56,15 @@ public class RegisterRecept extends Activity {
     private Spinner inputTyp;
     private Spinner inputPortioner;
 
+    private Spinner amount_spinner;
+    private Spinner measure_spinner;
+
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
 
     private TextView txtName;
     private TextView txtUID;
-
-
 
     private Button btnSparaRecept;
     private Button btnTaBild;
@@ -67,6 +74,15 @@ public class RegisterRecept extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lagg_till_recept);
 
+        editTextReceptIngredienser= (EditText) findViewById(R.id.editText_recept_ingredienser);
+        listViewIngredientList= (ListView) findViewById(R.id.ingredient_list);
+
+        final ArrayList<String> ingredientItems = new ArrayList<>();
+        final  ArrayAdapter<String> aa;
+
+        aa= new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ingredientItems);
+
+        listViewIngredientList.setAdapter(aa);
 
         //Spinner metod
         Spinner();
@@ -250,18 +266,39 @@ public class RegisterRecept extends Activity {
 
     private void Spinner (){
 
-        Spinner Spinner_typ = (Spinner) findViewById(R.id.spinner_recept_typ); //
+        Spinner Spinner_typ = (Spinner) findViewById(R.id.spinner_recept_typ);
+        Spinner amount_spinner = (Spinner) findViewById(R.id.amount_spinner);
+        Spinner measure_spinner = (Spinner) findViewById(R.id.measure_spinner);
+
 
         // Skapar en ArrayAdapter
         ArrayAdapter<CharSequence> typAdapter = ArrayAdapter
                 .createFromResource(this, R.array.array_typ_maltid,
                         android.R.layout.simple_spinner_item);
 
+        //ArrayAdapter för mängd dropdown.
+        ArrayAdapter amount_adapter = ArrayAdapter
+                .createFromResource(this, R.array.amount_spinner,
+                        android.R.layout.simple_spinner_item);
+
+        //ArrayAdapter för mått dropdown.
+        ArrayAdapter measure_adapter = ArrayAdapter
+                .createFromResource(this, R.array.measure_spinner,
+                        android.R.layout.simple_spinner_item);
+
+
         //vanlig layout används
         typAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //Sätter adapter till spinner
+
         Spinner_typ.setAdapter(typAdapter);
+        amount_spinner.setAdapter(amount_adapter);
+        measure_spinner.setAdapter(measure_adapter);
+
+        amount_spinner.setOnItemSelectedListener(this);
+        measure_spinner.setOnItemSelectedListener(this);
+        Spinner_typ.setOnItemSelectedListener(this);
 
         Spinner Spinner_portioner = (Spinner) findViewById(R.id.spinner_recept_portioner);
 
@@ -286,5 +323,32 @@ public class RegisterRecept extends Activity {
         });
     }
 
+    //Metod för att visa meddelande när användare klockar på ett värde i spinner.
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        TextView myText = (TextView) view;
+        Toast.makeText(this, "Du har valt ", Toast.LENGTH_SHORT) .show();
 
     }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+
+    }
+
+    //Metod för att lägga till ingredient från editText_recept_ingredienser till ingredient_list
+    public void onBtnClickAddIngredient(View v){
+
+        int k= listViewIngredientList.getCount();
+        String a1[]= new String[k+1];
+        a1[0] = editTextReceptIngredienser.getText().toString();
+        editTextReceptIngredienser.setText("");
+        for (int i = 0; i < k; i++){
+            a1[i + 1] = listViewIngredientList.getItemAtPosition(i).toString();
+        }
+        ArrayAdapter<String> aan = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, a1);
+        listViewIngredientList.setAdapter(aan);
+
+    }
+}

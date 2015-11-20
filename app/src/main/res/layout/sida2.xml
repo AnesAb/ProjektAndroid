@@ -5,7 +5,7 @@
 
 
     <TextView android:text="@string/sida_2" android:layout_width="wrap_content"
-    android:textSize="44sp"
+    android:textSize="24sp"
     android:layout_height="wrap_content"
     android:id="@+id/textView_StartSida"
         android:layout_gravity="center_horizontal"
@@ -44,6 +44,13 @@
         android:layout_below="@+id/ratingBar"
         android:layout_alignLeft="@+id/ratingBar"
         android:layout_alignStart="@+id/ratingBar" />
+
+    <CalendarView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/calendarView"
+        android:layout_below="@+id/textView_StartSida"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

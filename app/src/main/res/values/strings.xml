@@ -2,7 +2,7 @@
     <string name="app_name">EatWit</string>
 
     <string name="startSida">Välkommen!</string>
-    <string name="sida_2">Sida 2</string>
+    <string name="sida_2">Sida2 Min mat kalender</string>
     <string name="sida_3">Sida 3</string>
 
     <string name="action_settings">Settings</string>
@@ -25,7 +25,7 @@
     <string name="btn_register">REGISTERA DIG</string>
     <string name="reg_btn">Inte medlem? Registrera dig nu.</string>
     <string name="btn_link_to_login">Är du redan medlem? Logga in här.</string>
-    <string name="welcome">Välkommen!</string>
+    <string name="welcome">Välkommen</string>
     <string name="logout_btn">LOGGA UT</string>
     <string name="name">Fullname</string>
     <string name="err_alla_falt">Vänligen fyll i alla fält</string>
@@ -42,6 +42,41 @@
         <item>Efterrätt</item>
         <item>Mellanmål</item>
         <item>Sallad</item>
+    </string-array>
+
+    <string-array name="measure_spinner">
+        <item>st</item>
+        <item>krm</item>
+        <item>tsk</item>
+        <item>dsk</item>
+        <item>msk</item>
+        <item>g</item>
+        <item>hg</item>
+        <item>kg</item>
+        <item>ml</item>
+        <item>cl</item>
+        <item>dl</item>
+        <item>l</item>
+
+    </string-array>
+
+    <string-array name="amount_spinner">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>l2</item>
+        <item>l3</item>
+        <item>l4</item>
+        <item>l5</item>
+
     </string-array>
 
 

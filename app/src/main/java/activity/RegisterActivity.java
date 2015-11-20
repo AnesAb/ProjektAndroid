@@ -85,7 +85,7 @@ public class RegisterActivity extends Activity {
                     registerUser(name, email, password);
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            "Please enter your details!", Toast.LENGTH_LONG)
+                            R.string.err_alla_falt, Toast.LENGTH_LONG)
                             .show();
                 }
             }
