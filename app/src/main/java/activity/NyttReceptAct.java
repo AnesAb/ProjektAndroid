@@ -1,0 +1,288 @@
+package activity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.anesa.test.R;
+import app.AppConfig;
+import camera.C_Activity;
+import helper.JSONParser;
+import helper.SQLiteHandler;
+
+public class NyttReceptAct extends Activity implements AdapterView.OnItemSelectedListener {
+
+    // Progress Dialog
+    private ProgressDialog pDialog;
+
+    JSONParser jsonParser = new JSONParser();
+
+    private EditText inputReceptNamn;
+    private EditText inputTid;
+    private EditText inputBeskrivning;
+    private EditText inputTillagning;
+    private EditText inputIngredienser;
+    private Spinner inputTyp;
+    private Spinner inputPortioner;
+
+    private TextView txtName;
+    private TextView txtUID;
+    private SQLiteHandler db;
+    private Button btnSparaRecept;
+    private Button btnTaBild;
+
+    private EditText editTextReceptIngredienser;
+    private ListView listViewIngredientList;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.lagg_till_recept);
+
+        editTextReceptIngredienser= (EditText) findViewById(R.id.editText_recept_ingredienser);
+        listViewIngredientList= (ListView) findViewById(R.id.ingredient_list);
+
+        final ArrayList<String> ingredientItems = new ArrayList<>();
+        final  ArrayAdapter<String> aa;
+
+        aa= new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ingredientItems);
+
+        listViewIngredientList.setAdapter(aa);
+
+
+        //Startar Spinners
+        Spinner();
+
+        //Knappar
+        btnSparaRecept = (Button) findViewById(R.id.btn_recept_SparaRecept);
+        btnTaBild = (Button) findViewById(R.id.btn_recept_ta_bild);
+
+        inputReceptNamn = (EditText) findViewById(R.id.editText_recept_namn);
+        inputTid = (EditText) findViewById(R.id.editText_recept_tid);
+        inputBeskrivning = (EditText) findViewById(R.id.editText_recept_beskrining);
+        inputTillagning = (EditText) findViewById(R.id.editText_recept_tillagning);
+        inputIngredienser = (EditText) findViewById(R.id.editText_recept_ingredienser);
+
+        inputTyp = (Spinner) findViewById(R.id.spinner_recept_typ);
+        inputPortioner = (Spinner) findViewById(R.id.spinner_recept_portioner);
+
+        //Hämta namn och uid från användare tabell
+
+        db = new SQLiteHandler(getApplicationContext());
+
+        txtName = (TextView) findViewById(R.id.textView_hamta_Name);
+        txtUID = (TextView) findViewById(R.id.textView_hamta_Uid);
+        HashMap<String, String> user = db.getUserDetails();
+
+
+        String name = user.get("name");
+        String uid = user.get("uid");
+        txtName.setText(name);
+        txtUID.setText(uid);
+
+        // button click event
+        btnSparaRecept.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Skapar ny bakgrundsthread
+                new skapaRecept().execute();
+            }
+        });
+
+        btnTaBild.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getApplicationContext(), C_Activity.class);
+                startActivity(myIntent);
+
+            }
+
+        });
+
+    }
+
+    /**
+     * Async Task för att skapa recept
+     * */
+    class skapaRecept extends AsyncTask<String, String, String> {
+
+        /**
+         * Innan aktivitet i bakgrund sker så ska Progress Dialog visas
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(NyttReceptAct.this);
+            pDialog.setMessage("Skapar Recept..");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        /**
+         * Skapar recept i bakgrunden
+         * */
+        protected String doInBackground(String... args) {
+
+            String name = txtName.getText().toString().trim();
+            String receptNamn = inputReceptNamn.getText().toString().trim();
+            String typ = inputTyp.getSelectedItem().toString();
+            String tid = inputTid.getText().toString().trim();
+            String portioner = inputPortioner.getSelectedItem().toString();
+            String beskrivning = inputBeskrivning.getText().toString().trim();
+            String tillagning = inputTillagning.getText().toString().trim();
+            String ingredienser = inputIngredienser.getText().toString().trim();
+            String uid = txtUID.getText().toString().trim();
+
+            // ArrayList
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+            //Lägger till parametrar till ArrayList
+            params.add(new BasicNameValuePair("name", name));
+            params.add(new BasicNameValuePair("receptNamn", receptNamn));
+            params.add(new BasicNameValuePair("typ", typ));
+            params.add(new BasicNameValuePair("tid", tid));
+            params.add(new BasicNameValuePair("portioner", portioner));
+            params.add(new BasicNameValuePair("beskrivning", beskrivning));
+            params.add(new BasicNameValuePair("tillagning", tillagning));
+            params.add(new BasicNameValuePair("ingredienser", ingredienser));
+            params.add(new BasicNameValuePair("uid", uid));
+
+            // Skickar förfrågan till server genom att använda JSON
+            JSONObject json = jsonParser.makeHttpRequest(AppConfig.URL_SKAPA_RECEPT, "POST", params);
+            Log.d("Create Response", json.toString());
+
+            // Kollar om respons lyckades
+            try {
+                int success = json.getInt(AppConfig.TAG_SUCCESS);
+
+                if (success == 1) {
+                    // Recept har skapats
+                    Intent i = new Intent(getApplicationContext(), AllaReceptAct.class);
+                    startActivity(i);
+
+                    // Stänger denna aktivitet
+                    finish();
+                } else {
+                    // TODO felmeddelande om recept inte lyckas
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(String file_url) {
+            // Dialogen stängs ner
+            pDialog.dismiss();
+        }
+    }
+
+    private void Spinner (){
+
+        Spinner Spinner_typ = (Spinner) findViewById(R.id.spinner_recept_typ);
+        Spinner amount_spinner = (Spinner) findViewById(R.id.amount_spinner);
+        Spinner measure_spinner = (Spinner) findViewById(R.id.measure_spinner);
+
+
+        // Skapar en ArrayAdapter
+        ArrayAdapter<CharSequence> typAdapter = ArrayAdapter
+                .createFromResource(this, R.array.array_typ_maltid,
+                        android.R.layout.simple_spinner_item);
+
+        //ArrayAdapter för mängd dropdown.
+        ArrayAdapter amount_adapter = ArrayAdapter
+                .createFromResource(this, R.array.amount_spinner,
+                        android.R.layout.simple_spinner_item);
+
+        //ArrayAdapter för mått dropdown.
+        ArrayAdapter measure_adapter = ArrayAdapter
+                .createFromResource(this, R.array.measure_spinner,
+                        android.R.layout.simple_spinner_item);
+
+
+        //vanlig layout används
+        typAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //Sätter adapter till spinner
+
+        Spinner_typ.setAdapter(typAdapter);
+        amount_spinner.setAdapter(amount_adapter);
+        measure_spinner.setAdapter(measure_adapter);
+
+        amount_spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        measure_spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        Spinner_typ.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+
+        Spinner Spinner_portioner = (Spinner) findViewById(R.id.spinner_recept_portioner);
+
+        String[] items = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, items);
+
+        Spinner_portioner.setAdapter(adapter);
+
+        Spinner_portioner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                Log.v("item", (String) parent.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
+    }
+
+    //Metod för att visa meddelande när användare klockar på ett värde i spinner.
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        TextView myText = (TextView) view;
+        Toast.makeText(this, "Du har valt ", Toast.LENGTH_SHORT) .show();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+
+    }
+
+    //Metod för att lägga till ingredient från editText_recept_ingredienser till ingredient_list
+    public void onBtnClickAddIngredient(View v){
+
+        int k= listViewIngredientList.getCount();
+        String a1[]= new String[k+1];
+        a1[0] = editTextReceptIngredienser.getText().toString();
+        editTextReceptIngredienser.setText("");
+        for (int i = 0; i < k; i++){
+            a1[i + 1] = listViewIngredientList.getItemAtPosition(i).toString();
+        }
+        ArrayAdapter<String> aan = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, a1);
+        listViewIngredientList.setAdapter(aan);
+
+    }
+}

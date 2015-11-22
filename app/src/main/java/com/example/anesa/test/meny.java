@@ -6,12 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.util.HashMap;
-
-import activity.GetMinaRecept;
-import activity.RegisterActivity;
-import activity.RegisterRecept;
+import activity.MinaReceptMenyAct;
+import activity.NyttReceptAct;
 import camera.C_Activity;
 import helper.SQLiteHandler;
 import helper.SessionManager;
@@ -87,14 +84,14 @@ public class meny extends Activity {
 
     public void onBtnAddRecept(View view) {
 
-        Intent getBookScreenIntent = new Intent (this, RegisterRecept.class);
+        Intent getBookScreenIntent = new Intent (this, NyttReceptAct.class);
         startActivity(getBookScreenIntent);
 
     }
 
     public void onBtnShowRecept(View view) {
 
-        Intent getBookScreenIntent = new Intent (this, GetMinaRecept.class);
+        Intent getBookScreenIntent = new Intent (this, MinaReceptMenyAct.class);
         startActivity(getBookScreenIntent);
 
     }

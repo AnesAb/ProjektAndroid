@@ -47,7 +47,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="34dp"
-        android:layout_toStartOf="@+id/add_ingredient_button"
         android:layout_alignRight="@+id/ingredient_list"
         android:layout_alignEnd="@+id/ingredient_list" />
 
@@ -105,7 +104,6 @@
         android:hint="uidEtT"
         android:id="@+id/textView_hamta_Uid"
         android:visibility="invisible"
-
         android:layout_below="@+id/textView_hamta_Name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
