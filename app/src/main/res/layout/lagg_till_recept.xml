@@ -6,25 +6,27 @@
     android:orientation="vertical"
     android:padding="10dp" >
 
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="190dp"
         android:layout_height="50dp"
         android:id="@+id/editText_recept_ingredienser"
         android:hint="Ingrediens"
         android:textSize="16sp"
-        android:background="@drawable/rounded_corners_no_radius"
+        android:background="@drawable/rounded_corners_no_radius_stroke"
         android:layout_gravity="bottom"
         android:layout_below="@+id/spinner_recept_typ"
         android:layout_toRightOf="@+id/measure_spinner"
         android:layout_toLeftOf="@+id/add_ingredient_button"
         android:layout_toStartOf="@+id/add_ingredient_button"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="1dp" />
 
     <EditText
         android:layout_width="254dp"
         android:layout_height="50dp"
         android:textSize="18sp"
         android:hint="Receptnamn"
+
         android:textColorHint="@color/color_green_logo"
         android:id="@+id/editText_recept_namn"
         android:layout_gravity="center_vertical"
@@ -40,13 +42,13 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/editText_recept_tillagning"
-        android:text="Gör så här"
+        android:hint="Gör så här..."
         android:textSize="14sp"
         android:background="@drawable/rounded_corners_no_radius"
         android:layout_above="@+id/btn_recept_SparaRecept"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="34dp"
+        android:layout_marginBottom="30dp"
         android:layout_alignRight="@+id/ingredient_list"
         android:layout_alignEnd="@+id/ingredient_list" />
 
@@ -54,7 +56,7 @@
         android:layout_width="371dp"
         android:layout_height="50dp"
         android:inputType="textMultiLine"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:ems="10"
         android:id="@+id/editText_recept_beskrining"
         android:hint="Beskrivning"
@@ -67,8 +69,8 @@
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:id="@+id/editText_recept_tid"
-        android:hint="t:m"
-        android:textSize="12sp"
+        android:hint="@string/tid"
+        android:textSize="16sp"
         android:layout_marginLeft="16dp"
         android:layout_above="@+id/editText_recept_ingredienser"
         android:layout_alignParentLeft="true"
@@ -85,7 +87,8 @@
 
         android:textColor="@color/white"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
 
 
     <TextView
@@ -169,10 +172,11 @@
         android:layout_marginTop="5dp" />
 
     <ImageButton
-        android:layout_width="60dp"
+        android:layout_width="55dp"
         android:layout_height="40dp"
         android:id="@+id/add_ingredient_button"
-        android:background="@drawable/plus_button_green"
+
+        android:background="@drawable/plus_button_green_stroke"
         android:onClick="onBtnClickAddIngredient"
         android:layout_above="@+id/ingredient_list"
         android:layout_alignRight="@+id/editText_recept_beskrining"
@@ -182,36 +186,38 @@
     <Spinner
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/rounded_corners_no_radius"
+        android:background="@drawable/rounded_corners_no_radius_stroke"
         android:id="@+id/amount_spinner"
         android:spinnerMode="dropdown"
         android:layout_below="@+id/editText_recept_tid"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentEnd="false" />
     <Spinner
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/rounded_corners_no_radius"
+        android:background="@drawable/rounded_corners_no_radius_stroke"
         android:id="@+id/measure_spinner"
         android:spinnerMode="dropdown"
         android:layout_alignTop="@+id/editText_recept_ingredienser"
         android:layout_toRightOf="@+id/amount_spinner"
-        android:layout_toEndOf="@+id/amount_spinner" />
+        android:layout_toEndOf="@+id/amount_spinner"
+        android:layout_marginRight="1dp" />
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:id="@+id/ingredient_list"
         android:layout_below="@+id/amount_spinner"
         android:background="@drawable/rounded_corners_no_radius"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/editText_recept_tillagning"
         android:layout_toStartOf="@+id/add_ingredient_button"
-        android:layout_alignRight="@+id/editText_recept_beskrining"
-        android:layout_alignEnd="@+id/editText_recept_beskrining" />
+        android:layout_alignRight="@+id/add_ingredient_button"
+        android:layout_alignEnd="@+id/add_ingredient_button"
+        android:layout_above="@+id/editText_recept_tillagning" />
 
 
 </RelativeLayout>
