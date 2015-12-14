@@ -8,11 +8,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Recept Namn"
         android:id="@+id/textV_mina_recept_recept_namn"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/imageView_mina_recept"
-        android:layout_toEndOf="@+id/imageView_mina_recept"
-        android:layout_marginLeft="35dp"
-        android:layout_marginStart="35dp" />
+        android:layout_below="@+id/imageView_mina_recept"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,31 +18,29 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Beskrivning"
         android:id="@+id/textV_mina_recept_beskrivning"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/textV_mina_recept_recept_namn"
-        android:layout_alignLeft="@+id/textV_mina_recept_recept_namn"
-        android:layout_alignStart="@+id/textV_mina_recept_recept_namn" />
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="typ"
+        android:text="Typ"
         android:id="@+id/textV_mina_recept_typ"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/textV_mina_recept_beskrivning"
-        android:layout_alignLeft="@+id/textV_mina_recept_beskrivning"
-        android:layout_alignStart="@+id/textV_mina_recept_beskrivning" />
+        android:layout_below="@+id/textV_mina_recept_portioner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="tid"
+        android:text="Tid"
         android:id="@+id/textV_mina_recept_tid"
-        android:layout_marginTop="33dp"
         android:layout_below="@+id/textV_mina_recept_typ"
-        android:layout_alignLeft="@+id/textV_mina_recept_typ"
-        android:layout_alignStart="@+id/textV_mina_recept_typ" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,10 +48,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Portioner"
         android:id="@+id/textV_mina_recept_portioner"
-        android:layout_marginTop="24dp"
-        android:layout_below="@+id/textV_mina_recept_tid"
-        android:layout_alignLeft="@+id/textV_mina_recept_tid"
-        android:layout_alignStart="@+id/textV_mina_recept_tid" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,9 +58,10 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Gör så här"
         android:id="@+id/textV_mina_recept_tillagning"
-        android:layout_marginBottom="132dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/textV_mina_recept_ingredienser"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="27dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,24 +69,18 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Ingredienser"
         android:id="@+id/textV_mina_recept_ingredienser"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
-        android:layout_above="@+id/textV_mina_recept_tillagning"
+        android:layout_below="@+id/textV_mina_recept_tid"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="65dp" />
+        android:layout_alignParentStart="true" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
         android:id="@+id/imageView_mina_recept"
-        android:layout_alignTop="@+id/textV_mina_recept_recept_namn"
-        android:background="@color/accent_material_light"
+        android:background="@drawable/food"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/textV_mina_recept_tillagning"
-        android:layout_toStartOf="@+id/textV_mina_recept_tillagning"
-        android:layout_alignBottom="@+id/textV_mina_recept_tid" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -107,9 +97,9 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/textV_mina_recept_uid"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/textV_mina_recept_tillagning"
-        android:layout_toStartOf="@+id/textV_mina_recept_tillagning"
-        />
+        android:layout_below="@+id/textV_mina_recept_tillagning"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="35dp" />
 
 </RelativeLayout>
