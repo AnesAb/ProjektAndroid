@@ -35,67 +35,49 @@
         android:layout_alignParentEnd="true" />
 
     <ImageView
-        android:layout_width="fill_parent"
+        android:layout_width="300dp"
         android:layout_height="200dp"
         android:id="@+id/imageView3"
-        android:background="@drawable/food"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:background="@drawable/foodfaded2"
+        android:layout_alignTop="@+id/name"
+        android:layout_alignRight="@+id/button7"
+        android:layout_alignEnd="@+id/button7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <SearchView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corners_no_radius"
+        android:background="@drawable/rounded_corners_no_radius_stroke"
         android:id="@+id/searchView"
         android:layout_below="@+id/imageView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:hint="Sök recept" />
 
     <ImageButton
-        android:layout_width="155dp"
-        android:layout_height="70dp"
+        android:layout_width="300dp"
+        android:layout_height="90dp"
         android:id="@+id/btn_lagg_till_recept"
         android:onClick="onBtnAddRecept"
         android:background="@drawable/button_add_recepie"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/searchView" />
+        android:layout_below="@+id/searchView"
+        android:layout_toLeftOf="@+id/button7"
+        android:layout_toStartOf="@+id/button7"
+        android:layout_marginBottom="10dp" />
 
     <ImageButton
-        android:layout_width="155dp"
-        android:layout_height="70dp"
-        android:background="@drawable/button_random_recepie"
-        android:id="@+id/RandomRecipe"
-        android:layout_below="@+id/btn_lagg_till_recept"
-        android:layout_alignLeft="@+id/btn_lagg_till_recept"
-        android:layout_alignStart="@+id/btn_lagg_till_recept"
-        android:layout_marginTop="15dp" />
-
-    <ImageButton
-        android:layout_width="155dp"
-        android:layout_height="70dp"
-        android:id="@+id/PlanMeal"
-        android:onClick="onBtn2"
-        android:background="@drawable/button_food_calendar"
-        android:layout_alignTop="@+id/RandomRecipe"
-        android:layout_toRightOf="@+id/btn_lagg_till_recept"
-        android:layout_toEndOf="@+id/btn_lagg_till_recept" />
-
-    <ImageButton
-        android:layout_width="155dp"
-        android:layout_height="70dp"
+        android:layout_width="170dp"
+        android:layout_height="90dp"
         android:onClick="onBtnShowRecept"
         android:id="@+id/ShowMyRecipe"
         android:background="@drawable/button_my_recepies"
-        android:layout_alignTop="@+id/btn_lagg_till_recept"
-        android:layout_alignLeft="@+id/PlanMeal"
-        android:layout_alignStart="@+id/PlanMeal" />
+        android:layout_below="@+id/btn_lagg_till_recept"
+        android:layout_alignLeft="@+id/btn_lagg_till_recept"
+        android:layout_alignStart="@+id/btn_lagg_till_recept"
+        android:layout_alignRight="@+id/btn_lagg_till_recept"
+        android:layout_alignEnd="@+id/btn_lagg_till_recept" />
 
 
 </RelativeLayout>
