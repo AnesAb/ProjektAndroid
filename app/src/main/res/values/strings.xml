@@ -79,12 +79,18 @@
 
     </string-array>
 
+    <string-array name="ingredienser">
+        "Mjöl","Socker","Smör","Ägg","Bakpulver","Vaniljsocker","Vanilj","Cocao"
+
+    </string-array>
+
+
+
+
     <string name="btn_txt_mina_recept">mina recept</string>
     <string name="btn_txt_nytt_recept">nytt recept</string>
     <string name="btn_txt_alla_recept">alla recept</string>
-
-
-
+    <string name="tid">t:m</string>
 
 
 </resources>
