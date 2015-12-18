@@ -6,44 +6,15 @@
     android:orientation="vertical"
     android:padding="0dp" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome"
-        android:textSize="18dp"
-        android:id="@+id/textView3"/>
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:padding="10dp"
-        android:textColor="@color/lbl_name"
-        android:textSize="18dp"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_toRightOf="@+id/textView3"
-        android:layout_toEndOf="@+id/textView3" />
-
-    <Button
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:text="logga ut"
-        android:id="@+id/button7"
-        android:onClick="onBtnLogOut"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <ImageView
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:id="@+id/imageView3"
-        android:background="@drawable/foodfaded2"
-        android:layout_alignTop="@+id/name"
-        android:layout_alignRight="@+id/button7"
-        android:layout_alignEnd="@+id/button7"
+        android:background="@drawable/foodfaded_v1"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <SearchView
         android:layout_width="fill_parent"
@@ -63,21 +34,24 @@
         android:onClick="onBtnAddRecept"
         android:background="@drawable/button_add_recepie"
         android:layout_below="@+id/searchView"
-        android:layout_toLeftOf="@+id/button7"
-        android:layout_toStartOf="@+id/button7"
-        android:layout_marginBottom="10dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="top" />
 
     <ImageButton
-        android:layout_width="170dp"
+        android:layout_width="300dp"
         android:layout_height="90dp"
         android:onClick="onBtnShowRecept"
         android:id="@+id/ShowMyRecipe"
         android:background="@drawable/button_my_recepies"
         android:layout_below="@+id/btn_lagg_till_recept"
+        android:layout_marginTop="10dp"
         android:layout_alignLeft="@+id/btn_lagg_till_recept"
         android:layout_alignStart="@+id/btn_lagg_till_recept"
         android:layout_alignRight="@+id/btn_lagg_till_recept"
-        android:layout_alignEnd="@+id/btn_lagg_till_recept" />
+        android:layout_alignEnd="@+id/btn_lagg_till_recept"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="top" />
 
 
 </RelativeLayout>
