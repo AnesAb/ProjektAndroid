@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    <!-- Main ListView
+         Always give id value as list(@android:id/list)
+    -->
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:background="@drawable/rounded_corners_no_radius"
+        android:layout_height="336dp"/>
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:padding="5dip"
+        android:layout_weight="0.82"
+        android:baselineAligned="false">
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:background="@drawable/button_all_recepies"
+            android:id="@+id/button4"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/button_add_recepie"
+            android:id="@+id/btn_lagg_till_recept"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="top"
+            android:layout_weight="1" />
+
+    </TableRow>
+
+</LinearLayout>
