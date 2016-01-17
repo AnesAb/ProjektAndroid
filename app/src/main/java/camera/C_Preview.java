@@ -21,8 +21,6 @@ class C_Preview extends ViewGroup implements SurfaceHolder.Callback {
 
     SurfaceView mSurfaceView;
     SurfaceHolder mHolder;
-    int heightmax ;
-    int widthmax ;
     Size mPreviewSize;
     List<Size> mSupportedPreviewSizes;
     Camera mCamera;
@@ -32,8 +30,6 @@ class C_Preview extends ViewGroup implements SurfaceHolder.Callback {
         super(context);
 
         mSurfaceView = sv;
-//        addView(mSurfaceView);
-
         mHolder = mSurfaceView.getHolder();
         mHolder.addCallback(this);
         mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -61,9 +57,6 @@ class C_Preview extends ViewGroup implements SurfaceHolder.Callback {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        // We purposely disregard child measurements because act as a
-        // wrapper to a SurfaceView that centers the kamera_knapp preview instead
-        // of stretching it.
         final int width = resolveSize(getSuggestedMinimumWidth(), widthMeasureSpec);
         final int height = resolveSize(getSuggestedMinimumHeight(), heightMeasureSpec);
         setMeasuredDimension(width, height);
@@ -76,29 +69,15 @@ class C_Preview extends ViewGroup implements SurfaceHolder.Callback {
     }
 
     public Size maxSize(){
-
-//    	heightmax =0;
-//    	widthmax =0;
         Size sizeMax=mSupportedPreviewSizes.get(0);
-        //long totalsize = heightmax*widthmax;
-        //long maxsize=mSupportedPreviewSizes.get(0).height*mSupportedPreviewSizes.get(0).width;
 
         for(Size size:mSupportedPreviewSizes){
             if(size.height*size.width>sizeMax.width*sizeMax.height){
                 sizeMax = size;
-
             }
         }
 
         return sizeMax;
-//    	for(int i = 0;i<mSupportedPreviewSizes.size();i++){
-//    		if(maxsize>totalsize){
-//    			heightmax = mSupportedPreviewSizes.get(i).height;
-//    			widthmax = mSupportedPreviewSizes.get(i).width;
-//    			totalsize=maxsize;
-//    		}
-//    	}
-
 
     }
     @Override
@@ -142,23 +121,13 @@ class C_Preview extends ViewGroup implements SurfaceHolder.Callback {
     }
 
     public void surfaceDestroyed(SurfaceHolder holder) {
-        // Surface will be destroyed when we return, so stop the preview.
+        // Surface destroyed, so stop the preview.
         if (mCamera != null) {
             mCamera.stopPreview();
             mCamera.release();
         }
     }
 
-
-
-    Camera.AutoFocusCallback mnAutoFocusCallback = new Camera.AutoFocusCallback() {
-        @Override
-        public void onAutoFocus(boolean success, Camera camera) {
-
-
-
-        }
-    };
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
         if(mCamera != null) {
             Camera.Parameters parameters = mCamera.getParameters();

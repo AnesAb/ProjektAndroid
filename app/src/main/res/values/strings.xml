@@ -2,21 +2,12 @@
     <string name="app_name">EatWit</string>
 
     <string name="startSida">Välkommen!</string>
-    <string name="sida_2">Sida2 Min mat kalender</string>
-    <string name="sida_3">Sida 3</string>
 
     <string name="action_settings">Settings</string>
     <string name="btn_sida2">Fortsätt</string>
     <string name="sida3_btnTxt">Till sida 3</string>
-
-    <string name="swipe_title1">Sida 1 på swipe</string>
-    <string name="swipe_title2">Sida 2 på Swipe</string>
-    <string name="swipe_title3">Sida 3 på swipe</string>
     <string name="camera_title">kamera</string>
     <string name="kamera">kamera</string>
-
-
-
 
     <string name="email">Email</string>
     <string name="password">Lösenord</string>
@@ -31,7 +22,6 @@
     <string name="err_alla_falt">Vänligen fyll i alla fält</string>
     <string name="msg_logga_in">Loggar in ...</string>
     <string name="reg_lyckades">Registrering lyckad. Du kan nu logga in!</string>
-
 
     <string name="pic_save">Bild sparad!</string>
     <string name="save_btn">Spara</string>
@@ -79,18 +69,28 @@
 
     </string-array>
 
-    <string-array name="ingredienser">
-        "Mjöl","Socker","Smör","Ägg","Bakpulver","Vaniljsocker","Vanilj","Cocao"
+    <string-array name="tid_spinner">
+
+        <item>0-5 min</item>
+        <item>5-10 min</item>
+        <item>10-15 min</item>
+        <item>15-20 min</item>
+        <item>20-30 min</item>
+        <item>30-40 min</item>
+        <item>40-50 min</item>
+        <item>1 tim</item>
+        <item>1.5 tim</item>
+        <item>2 tim</item>
+        <item>2.5 tim</item>
+        <item>3 tim</item>
+        <item>3.5 tim</item>
+        <item>4 tim</item>
+        <item>>4 tim</item>
 
     </string-array>
 
-
-
-
-    <string name="btn_txt_mina_recept">mina recept</string>
-    <string name="btn_txt_nytt_recept">nytt recept</string>
-    <string name="btn_txt_alla_recept">alla recept</string>
     <string name="tid">t:m</string>
 
+    <string name="stäng_dialog_box">Stäng</string>
 
 </resources>

@@ -20,4 +20,14 @@
         android:textSize="17dip"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/recept_beskrivning"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dip"
+        android:paddingLeft="6dip"
+        android:textSize="12dip"
+        android:textStyle="normal" />
+
+
 </LinearLayout>

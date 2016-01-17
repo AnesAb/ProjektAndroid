@@ -1,31 +1,48 @@
 package activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+        import java.io.IOException;
+        import java.net.MalformedURLException;
+        import java.net.URL;
+        import java.util.ArrayList;
+        import java.util.HashMap;
+        import java.util.List;
 
-import org.apache.http.NameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
+        import org.apache.http.NameValuePair;
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
-import com.example.anesa.test.R;
+        import android.app.AlertDialog;
+        import android.app.ListActivity;
+        import android.app.ProgressDialog;
+        import android.content.DialogInterface;
+        import android.content.Intent;
+        import android.graphics.Bitmap;
+        import android.graphics.BitmapFactory;
+        import android.media.Image;
+        import android.os.AsyncTask;
+        import android.os.Bundle;
+        import android.text.Editable;
+        import android.text.TextWatcher;
+        import android.util.Log;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.AdapterView;
+        import android.widget.AdapterView.OnItemClickListener;
+        import android.widget.EditText;
+        import android.widget.Filterable;
+        import android.widget.ImageView;
+        import android.widget.ListAdapter;
+        import android.widget.ListView;
+        import android.widget.SimpleAdapter;
+        import android.widget.TextView;
 
-import app.AppConfig;
-import helper.JSONParser;
+        import com.example.anesa.test.R;
+
+        import app.AppConfig;
+        import helper.ConnectImg;
+        import helper.JSONParser;
 
 public class AllaReceptAct extends ListActivity {
 
@@ -41,10 +58,16 @@ public class AllaReceptAct extends ListActivity {
     // recept JSONArray
     JSONArray recepts = null;
 
+    EditText inputSearch;
+    SimpleAdapter adapter;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.alla_recept_lista);
+        setContentView(R.layout.recept_lista);
+
+        inputSearch = (EditText) findViewById(R.id.inputSearch);
 
         // Hashmap för receptList
         receptList = new ArrayList<HashMap<String, String>>();
@@ -53,6 +76,31 @@ public class AllaReceptAct extends ListActivity {
         new LoadAllRecept().execute();
 
         ListView lv = getListView();
+        lv.setTextFilterEnabled(true);
+
+
+        inputSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO Auto-generated method stub
+                AllaReceptAct.this.adapter.getFilter().filter(s);
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }
+        });
 
         // om ett specifikt recept väljs så startas vyn för att kolla recept
         lv.setOnItemClickListener(new OnItemClickListener() {
@@ -76,6 +124,7 @@ public class AllaReceptAct extends ListActivity {
         });
 
     }
+
 
     // Respons
     @Override
@@ -114,11 +163,9 @@ public class AllaReceptAct extends ListActivity {
             // Hämtar JSON string från angivet url
             JSONObject json = jParser.makeHttpRequest(AppConfig.URL_HAMTA_ALLA_RECEPT, "GET", params);
 
-            // Check your log cat for JSON reponse
             Log.d("Alla Recept: ", json.toString());
 
             try {
-
                 int success = json.getInt(AppConfig.TAG_SUCCESS);
 
                 if (success == 1) {
@@ -132,12 +179,14 @@ public class AllaReceptAct extends ListActivity {
                         // Sparar de värden man vill ha från json objektet
                         String rid = j.getString(AppConfig.TAG_RID);
                         String receptName = j.getString(AppConfig.TAG_RECEPT_NAME);
+                        String receptBeskrivning = j.getString(AppConfig.TAG_BESKRIVNING);
 
                         // skapar hashmap där hämtade värden läggs till
                         HashMap<String, String> map = new HashMap<String, String>();
 
                         map.put(AppConfig.TAG_RID, rid);
                         map.put(AppConfig.TAG_RECEPT_NAME, receptName);
+                        map.put(AppConfig.TAG_BESKRIVNING, receptBeskrivning);
 
                         // lägger till HashListen map till ArrayListen receptList
                         receptList.add(map);
@@ -165,17 +214,19 @@ public class AllaReceptAct extends ListActivity {
             //
             runOnUiThread(new Runnable() {
                 public void run() {
-                     // uppdaterar json till ListView
-                    ListAdapter adapter = new SimpleAdapter(
+                    // uppdaterar json till ListView
+                    adapter = new SimpleAdapter(
                             AllaReceptAct.this, receptList,
-                            R.layout.list_item, new String[] {AppConfig.TAG_RID, AppConfig.TAG_RECEPT_NAME},
-                            new int[] { R.id.rid, R.id.recept_name});
+                            R.layout.list_item, new String[] {AppConfig.TAG_RID, AppConfig.TAG_RECEPT_NAME, AppConfig.TAG_BESKRIVNING},
+                            new int[] { R.id.rid, R.id.recept_name, R.id.recept_beskrivning});
                     // uppdaterar listview
                     setListAdapter(adapter);
+
                 }
             });
 
         }
 
     }
+
 }

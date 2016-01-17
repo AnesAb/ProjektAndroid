@@ -33,8 +33,8 @@
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageButton1"
-            android:src="@drawable/ikon_nytt_recept"
+            android:id="@+id/btn_alla_recept"
+            android:src="@drawable/ikon_alla_recept"
             android:layout_gravity="center"
             android:onClick="onBtnAddRecept"/>
     </LinearLayout>
@@ -50,8 +50,8 @@
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageButton12"
-            android:src="@drawable/ikon_visa_recept"
+            android:id="@+id/btn_mina_recept"
+            android:src="@drawable/ikon_mina_recept"
             android:layout_gravity="center"
             android:onClick="onBtnShowRecept"/>
     </LinearLayout>

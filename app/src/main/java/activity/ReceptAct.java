@@ -1,5 +1,8 @@
 package activity;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.NameValuePair;
@@ -7,14 +10,23 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.anesa.test.R;
 import app.AppConfig;
+import helper.ConnectImg;
 import helper.JSONParser;
 
 public class ReceptAct extends Activity {
@@ -29,6 +41,9 @@ public class ReceptAct extends Activity {
     private TextView txtTillagning;
     String rid;
 
+    private ImageView imageView;
+    private helper.ConnectImg ConnectImg;
+
     // Progress Dialog
     private ProgressDialog pDialog;
 
@@ -37,21 +52,53 @@ public class ReceptAct extends Activity {
 
 
     //JSON Objekt
-    static JSONObject productObj;
+    static JSONObject receptObj;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.visa_recept_layout);
 
+        imageView = (ImageView) findViewById(R.id.imageView_mina_recept);
+
         // Hämtar recept från intent
         Intent i = getIntent();
+
+        ConnectImg = new ConnectImg();
 
         //Hämtar rid från intent dvs det unika recept id
         rid = i.getStringExtra(AppConfig.TAG_RID);
 
-        // Getting complete product details in background thread
         new GetRecept().execute();
+
+        getImage();
+
+    }
+
+    //Förstorar Bild i en popup ruta
+    private void popUpBild(ImageView imageView, int width, int height) {
+
+        ImageView tempImageView = imageView;
+
+
+        AlertDialog.Builder imageDialog = new AlertDialog.Builder(this);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+
+        View layout = inflater.inflate(R.layout.mall_dialog_bild,
+                (ViewGroup) findViewById(R.id.layout_grund));
+        ImageView image = (ImageView) layout.findViewById(R.id.storBild);
+        image.setImageDrawable(tempImageView.getDrawable());
+        imageDialog.setView(layout);
+        imageDialog.setPositiveButton(R.string.stäng_dialog_box, new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+
+        });
+
+
+        imageDialog.create();
+        imageDialog.show();
     }
 
     /**
@@ -94,8 +141,8 @@ public class ReceptAct extends Activity {
                         success = json.getInt(AppConfig.TAG_SUCCESS);
                         if (success == 1) {
 
-                            productObj = (JSONObject) json.get(AppConfig.TAG_RECEPT);
-                            Log.i("JSONArray: ", productObj.toString());
+                            receptObj = (JSONObject) json.get(AppConfig.TAG_RECEPT);
+                            Log.i("JSONArray: ", receptObj.toString());
 
                             txtName = (TextView) findViewById(R.id.textV_mina_recept_name);
                             txtReceptNamn = (TextView) findViewById(R.id.textV_mina_recept_recept_namn);
@@ -125,16 +172,21 @@ public class ReceptAct extends Activity {
             // Visar information från valt recept i textView
 
             try {
-                txtName.setText(productObj.getString(AppConfig.TAG_NAME));
-                txtReceptNamn.setText(productObj.getString(AppConfig.TAG_RECEPT_NAME));
-                txtBeskrivning.setText(productObj.getString(AppConfig.TAG_BESKRIVNING));
-                txtTyp.setText(productObj.getString(AppConfig.TAG_TYP));
-                txtTid.setText(productObj.getString(AppConfig.TAG_TID));
-                txtPortioner.setText(productObj.getString(AppConfig.TAG_PORTIONER));
-                txtIngredienser.setText(productObj.getString(AppConfig.TAG_INGREDIENSER));
-                txtTillagning.setText(productObj.getString(AppConfig.TAG_TILLAGNING));
+                txtName.setText("Skapad av: " + receptObj.getString(AppConfig.TAG_NAME));
+                txtReceptNamn.setText(receptObj.getString(AppConfig.TAG_RECEPT_NAME));
+                txtBeskrivning.setText(receptObj.getString(AppConfig.TAG_BESKRIVNING));
+                txtTyp.setText(receptObj.getString(AppConfig.TAG_TYP));
+                txtTid.setText(receptObj.getString(AppConfig.TAG_TID));
+                txtPortioner.setText(receptObj.getString(AppConfig.TAG_PORTIONER));
 
-                // stänger ner dialog när allt har laddats
+
+                txtIngredienser.setText(receptObj.getString(AppConfig.TAG_INGREDIENSER));
+
+                txtTillagning.setText(receptObj.getString(AppConfig.TAG_TILLAGNING));
+
+
+
+                // stänger ner pdialog när allt har laddats
                 pDialog.dismiss();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -143,6 +195,52 @@ public class ReceptAct extends Activity {
         }
     }
 
-    //TODO Spara och ta bort recept
+    public void getImage() {
+
+        class GetImage extends AsyncTask<String,Void,Bitmap>{
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(ReceptAct.this, "Uploading...", null,true,true);
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap b) {
+                super.onPostExecute(b);
+                loading.dismiss();
+                imageView.setImageBitmap(b);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popUpBild(imageView, 250, 250);
+                    }
+                });
+
+            }
+
+            @Override
+            protected Bitmap doInBackground(String... params) {
+                String id = params[0];
+               // String add = "http://eatwit.se/android_pictures/getImage.php?id="+id;
+                String add = AppConfig.URL_GET_IMG+id;
+                URL url = null;
+                Bitmap image = null;
+                try {
+                    url = new URL(add);
+                    image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return image;
+            }
+        }
+
+        GetImage gi = new GetImage();
+        gi.execute(rid);
+    }
 
 }

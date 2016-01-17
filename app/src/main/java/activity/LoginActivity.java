@@ -19,8 +19,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.anesa.test.R;
 
-import com.example.anesa.test.meny;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -65,7 +63,7 @@ public class LoginActivity extends Activity {
 
         // Kollar om användare är inloggad sen tidigare. Om den är så skippas inloggningsruta
         if (session.isLoggedIn()) {
-            Intent intent = new Intent(LoginActivity.this, meny.class);
+            Intent intent = new Intent(LoginActivity.this, HuvudMenyAct.class);
             startActivity(intent);
             finish();
         }
@@ -146,7 +144,7 @@ public class LoginActivity extends Activity {
 
                         // Startar menyklassen
                         Intent intent = new Intent(LoginActivity.this,
-                                meny.class);
+                                HuvudMenyAct.class);
                         startActivity(intent);
                         finish();
                     } else {

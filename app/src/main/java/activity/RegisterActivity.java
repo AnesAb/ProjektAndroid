@@ -18,7 +18,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.anesa.test.R;
-import com.example.anesa.test.meny;
 
 
 import org.json.JSONException;
@@ -67,9 +66,9 @@ public class RegisterActivity extends Activity {
 
 
         if (session.isLoggedIn()) {
-            // om användare redan är inloggad gå till meny
+            // om användare redan är inloggad gå till HuvudMenyAct
             Intent intent = new Intent(RegisterActivity.this,
-                    meny.class);
+                    HuvudMenyAct.class);
             startActivity(intent);
             finish();
         }

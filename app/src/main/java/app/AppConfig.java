@@ -5,8 +5,6 @@ package app;
  */
 public class AppConfig {
 
-
-
         // Server user login url
         public static String URL_LOGIN = "http://eatwit.se/android_login_api/login.php";
 
@@ -32,7 +30,9 @@ public class AppConfig {
         // Server to get all recept
         public static String URL_HAMTA_ALLA_MINA_RECEPT = "http://eatwit.se/android_recept_api/hamta_mina_recept.php";
 
+        public static String URL_AUTO_COMP = "http://eatwit.se/auto_ing.php";
 
+        public static String URL_GET_IMG = "http://eatwit.se/android_pictures/getImage.php?id=";
 
         //Taggar JSON
 
@@ -47,9 +47,6 @@ public class AppConfig {
         public static final String TAG_TILLAGNING = "tillagning";
         public static final String TAG_INGREDIENSER = "ingredienser";
         public static final String TAG_PORTIONER = "portioner";
-
-
-
 
     }
 

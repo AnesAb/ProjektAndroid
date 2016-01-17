@@ -1,9 +1,8 @@
-package com.example.anesa.test;
+package activity;
 
 /**
  * Created by Loso on 2015-11-09.
  */
-import activity.LoginActivity;
 import helper.SQLiteHandler;
 import helper.SessionManager;
 import java.util.HashMap;
@@ -14,7 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class loggaUt extends Activity {
+import com.example.anesa.test.R;
+
+public class LoggaUtAct extends Activity {
 
     private TextView txtName;
     private TextView txtEmail;
@@ -71,7 +72,7 @@ public class loggaUt extends Activity {
         db.deleteUsers();
 
         // Startar login skärm
-        Intent intent = new Intent(loggaUt.this, LoginActivity.class);
+        Intent intent = new Intent(LoggaUtAct.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

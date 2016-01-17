@@ -5,10 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -37,18 +40,18 @@ public class AllaMinaReceptAct extends ListActivity {
     //Receptlista
     ArrayList<HashMap<String, String>> receptList;
 
-
+    SimpleAdapter adapter;
     static String uid;
 
     // recept JSONArray
     JSONArray recepts = null;
 
     private SQLiteHandler db;
-
+    EditText inputSearch;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.alla_recept_lista);
+        setContentView(R.layout.recept_lista);
 
         db = new SQLiteHandler(getApplicationContext());
         HashMap<String, String> user = db.getUserDetails();
@@ -57,11 +60,34 @@ public class AllaMinaReceptAct extends ListActivity {
 
         // Hashmap för receptList
         receptList = new ArrayList<HashMap<String, String>>();
-
+        inputSearch = (EditText) findViewById(R.id.inputSearch);
         // Laddar in recept i bakgrund Thread
         new LoadAllRecept().execute();
 
         ListView lv = getListView();
+        lv.setTextFilterEnabled(true);
+        inputSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO Auto-generated method stub
+                AllaMinaReceptAct.this.adapter.getFilter().filter(s);
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }
+        });
 
         // om ett specifikt recept väljs så startas vyn för att kolla recept
         lv.setOnItemClickListener(new OnItemClickListener() {
@@ -83,6 +109,9 @@ public class AllaMinaReceptAct extends ListActivity {
                 startActivityForResult(intent, 100);
             }
         });
+
+
+
 
     }
 
@@ -144,16 +173,16 @@ public class AllaMinaReceptAct extends ListActivity {
                         // Sparar de värden man vill ha från json objektet
                         String rid = j.getString(AppConfig.TAG_RID);
                         String receptName = j.getString(AppConfig.TAG_RECEPT_NAME);
-
+                        String receptBeskrivning = j.getString(AppConfig.TAG_BESKRIVNING);
                         // skapar hashmap där hämtade värden läggs till
                         HashMap<String, String> map = new HashMap<String, String>();
 
                         map.put(AppConfig.TAG_RID, rid);
                         map.put(AppConfig.TAG_RECEPT_NAME, receptName);
-
+                        map.put(AppConfig.TAG_BESKRIVNING, receptBeskrivning);
                         // lägger till HashListen map till ArrayListen receptList
                         receptList.add(map);
-                        }
+                    }
 
                 } else {
                     // om inga recept hittas kör skapa nytt recept
@@ -175,20 +204,22 @@ public class AllaMinaReceptAct extends ListActivity {
         protected void onPostExecute(String file_url) {
 
             pDialog.dismiss();
+            //
             runOnUiThread(new Runnable() {
                 public void run() {
-                     // uppdaterar json till ListView
-                    ListAdapter adapter = new SimpleAdapter(
+                    // uppdaterar json till ListView
+                    adapter = new SimpleAdapter(
                             AllaMinaReceptAct.this, receptList,
-                            R.layout.list_item, new String[] {AppConfig.TAG_RID,
-                            AppConfig.TAG_RECEPT_NAME},
-                            new int[] { R.id.rid, R.id.recept_name});
+                            R.layout.list_item, new String[] {AppConfig.TAG_RID, AppConfig.TAG_RECEPT_NAME, AppConfig.TAG_BESKRIVNING},
+                            new int[] { R.id.rid, R.id.recept_name, R.id.recept_beskrivning});
                     // uppdaterar listview
                     setListAdapter(adapter);
+
                 }
             });
 
         }
 
     }
+
 }

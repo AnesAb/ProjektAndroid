@@ -3,27 +3,28 @@ package camera;
 /**
  * Created by Loso on 2015-11-11.
  */
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-
-
+import java.util.HashMap;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
-import android.hardware.Camera.ShutterCallback;
 import android.media.ExifInterface;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceView;
@@ -34,10 +35,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.example.anesa.test.R;
-import com.example.anesa.test.meny;
 
+import activity.NyttReceptAct;
+import helper.ConnectImg;
 
 
 public class C_Activity extends Activity {
@@ -51,8 +52,11 @@ public class C_Activity extends Activity {
     ImageView fotoButton;
     LinearLayout progressLayout;
 
-    static String tempImgPath;
+    public static String tempImgPath;
+    public static final String UPLOAD_URL = "http://eatwit.se/android_pictures/upload.php";
+    public static final String UPLOAD_KEY = "image";
 
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +68,6 @@ public class C_Activity extends Activity {
         fotoButton = (ImageView) findViewById(R.id.imageView_foto);
         nyBildButton = (Button) findViewById(R.id.ok_btn);
         spara_btn = (Button) findViewById(R.id.spara_btn);
-
-
-
         image = (ImageView) findViewById(R.id.imageView_granska);
         progressLayout = (LinearLayout) findViewById(R.id.progress_layout);
 
@@ -99,7 +100,6 @@ public class C_Activity extends Activity {
         });
 
         nyBildButton.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
 
@@ -123,7 +123,8 @@ public class C_Activity extends Activity {
                     image.setImageResource(0);
                     nyBildButton.setVisibility(View.INVISIBLE);
                     spara_btn.setVisibility(View.INVISIBLE);
-                    Toast.makeText(getApplicationContext(), R.string.pic_save, Toast.LENGTH_LONG).show();
+                    uploadImage();
+
                 } catch (Exception e) {
 
                 }
@@ -154,7 +155,6 @@ public class C_Activity extends Activity {
         }
     }
 
-//TODO kamera krashar om man tar upp bakgrunds program onResume krävs??.
 
     @Override
     public void onBackPressed() {
@@ -165,18 +165,12 @@ public class C_Activity extends Activity {
     @Override
     protected void onRestart() {
         super.onRestart();
-       startCamera();
+        startCamera();
     }
 
-    //TODO kamera krashar om man är inne i den och lägger den i bakgrunden.
-    //LÖST?
     @Override
     protected void onStop() {
         super.onStop();
-        stopCamera();
-        finish();
-        Intent startaMeny = new Intent(C_Activity.this, meny.class);
-        C_Activity.this.startActivity(startaMeny); //Kamera avslutas och när man återupptar går den till meny igen
     }
 
     private void setCameraDisplayOrientation(Activity activity, int cameraId,
@@ -204,108 +198,75 @@ public class C_Activity extends Activity {
         int result;
         if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
             result = (info.orientation + degrees) % 360;
-            result = (360 - result) % 360; // compensate the mirror
-        } else { // back-facing
+        } else {
             result = (info.orientation - degrees + 360) % 360;
         }
         camera.setDisplayOrientation(result);
     }
 
-    Camera.AutoFocusCallback mAutoFocusCallback = new Camera.AutoFocusCallback() {
-        @Override
-        public void onAutoFocus(boolean success, Camera camera) {
-
-            try{
-                camera.takePicture(mShutterCallback, null, mPicture);
-            }catch(Exception e){
-
-            }
-
-        }
-    };
-
-    ShutterCallback mShutterCallback = new ShutterCallback() {
-
-        @Override
-        public void onShutter() {
-            // TODO Auto-generated method stub
-
-        }
-    };
-    public void takeFocusedPicture() {
-        camera.autoFocus(mAutoFocusCallback);
-
-    }
-
-
     Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
 
-                File pictureFile = getOutputPicFile();
-                if (pictureFile == null) {
-                    return;
-                }
-                try {
-                    FileOutputStream fos = new FileOutputStream(pictureFile);
-                    fos.write(data);
-                    fos.close();
-                } catch (FileNotFoundException e) {
+            File pictureFile = getOutputPicFile();
+            if (pictureFile == null) {
+                return;
+            }
+            try {
+                FileOutputStream fos = new FileOutputStream(pictureFile);
+                fos.write(data);
+                fos.close();
+            } catch (FileNotFoundException e) {
 
-                } catch (IOException e) {
-                }
+            } catch (IOException e) {
+            }
 
-                //cacheBild
-                Bitmap realImage;
-                final BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 5;
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 5;
 
-                options.inPurgeable = true;                   //Tell to gc that whether it needs free memory, the Bitmap can be cleared
+            options.inPurgeable = true;
 
-                options.inInputShareable = true;              //Which kind of reference will be used to recover the Bitmap data after being clear, when it will be used in the future
+            options.inInputShareable = true;
 
-                realImage = BitmapFactory.decodeByteArray(data, 0, data.length, options);
-                ExifInterface exif = null;
-
+            bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
+            ExifInterface exif = null;
 
             int counter =0;
 
-                try {
-                    exif = new ExifInterface(getOutputCachePath() + "IMG_Cache" + counter + ".jpg");
-                    counter++;
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+            try {
+                exif = new ExifInterface(tempImgPath);
+                counter++;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                Log.d("EXIF value",
+                        exif.getAttribute(ExifInterface.TAG_ORIENTATION));
+                if (exif.getAttribute(ExifInterface.TAG_ORIENTATION)
+                        .equalsIgnoreCase("1")) {
+                    bitmap = rotate(bitmap, 0);
+                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION)
+                        .equalsIgnoreCase("8")) {
+                    bitmap = rotate(bitmap, 90);
+                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION)
+                        .equalsIgnoreCase("3")) {
+                    bitmap = rotate(bitmap, 180);
+                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION)
+                        .equalsIgnoreCase("0")) {
+                    bitmap = rotate(bitmap, 270);
                 }
-
-                try {
-                    Log.d("EXIF value",
-                            exif.getAttribute(ExifInterface.TAG_ORIENTATION));
-                    if (exif.getAttribute(ExifInterface.TAG_ORIENTATION)
-                            .equalsIgnoreCase("1")) {
-                        realImage = rotate(realImage, 90);
-                    } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION)
-                            .equalsIgnoreCase("8")) {
-                        realImage = rotate(realImage, 90);
-                    } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION)
-                            .equalsIgnoreCase("3")) {
-                        realImage = rotate(realImage, 90);
-                    } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION)
-                            .equalsIgnoreCase("0")) {
-                        realImage = rotate(realImage, 90);
-                    }
-                } catch (Exception e) {
-
-                }
-
-                image.setImageBitmap(realImage);
-
-                fotoButton.setClickable(true);
-                camera.startPreview();
-                progressLayout.setVisibility(View.GONE); //////////////progress bar slut
-                nyBildButton.setClickable(true);
+            } catch (Exception e) {
 
             }
+
+            image.setImageBitmap(bitmap);
+            fotoButton.setClickable(true);
+            camera.startPreview();
+            progressLayout.setVisibility(View.GONE); //////////////progress bar slut
+            nyBildButton.setClickable(true);
+
+        }
 
     };
 
@@ -316,9 +277,8 @@ public class C_Activity extends Activity {
                 source.getHeight(), matrix, false);
     }
 
-
     private static File getOutputPicFile() {
-        //Skapar en ny map för appens applikationer                 //TODO om användare inte har SD-kort
+        //Skapar en ny map för appens applikationer
         File picStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "EatWit");
         if (!picStorageDir.exists()) {
             if (!picStorageDir.mkdirs()) {
@@ -326,27 +286,14 @@ public class C_Activity extends Activity {
                 return null;
             }
         }
-            // skapar bild
-            String tidKodBild = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            File mediaFile;
-            mediaFile = new File(picStorageDir.getPath() + File.separator + "IMG_" + tidKodBild + ".jpg");
-            // Sparar nuvarande bildens sökväg
-            tempImgPath = mediaFile.toString();
+        // skapar bild
+        String tidKodBild = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        mediaFile = new File(picStorageDir.getPath() + File.separator + "IMG_" + tidKodBild + ".jpg");
+        // Sparar nuvarande bildens sökväg
+        tempImgPath = mediaFile.toString();
+        return mediaFile;
 
-            return mediaFile;
-
-    }
-
-    private static String getOutputCachePath() { //TODO Behöver kollas upp. Ska detta användas
-
-        File cacheDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/EatWit","Cache");
-        if (!cacheDir.exists()) {
-            if (!cacheDir.mkdirs()) {
-                Log.d("CacheDir", "failed to create directory");
-                return null;
-            }
-        }
-        return cacheDir.getPath()+"/";
     }
 
     //metod som går till den senast tagna bilden och tar bort den
@@ -358,7 +305,54 @@ public class C_Activity extends Activity {
         return null;
     }
 
-    // TODO Spara Bild till server
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
 
+    private void uploadImage(){
+        class UploadImage extends AsyncTask<Bitmap,Void,String> {
+
+            ProgressDialog loading;
+            ConnectImg rh = new ConnectImg();
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(C_Activity.this, "Uploading Image", "Please wait...",true,true);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
+                Intent myIntent = new Intent(C_Activity.this, NyttReceptAct.class);
+                myIntent.putExtra("bildKoll", 1);
+                startActivity(myIntent);
+                finish();
+
+            }
+
+            @Override
+            protected String doInBackground(Bitmap... params) {
+                bitmap = params[0];
+                String uploadImage = getStringImage(bitmap);
+
+                HashMap<String,String> data = new HashMap<>();
+                data.put(UPLOAD_KEY, uploadImage);
+
+                String result = rh.sendPostRequest(UPLOAD_URL,data);
+
+                return result;
+            }
+        }
+
+        UploadImage ui = new UploadImage();
+        ui.execute(bitmap);
+    }
 
 }

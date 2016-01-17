@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
@@ -14,22 +13,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
-        <!-- SPARAS'-->
-
-        <activity android:name=".sida2"
-            android:label="@string/sida_2"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait"
-
-            />
-
-        <activity android:name=".sida3"
-            android:label="@string/sida_3"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait"
-
-            />
-
         <activity
             android:name="activity.LoginActivity"
             android:label="@string/app_name"
@@ -37,33 +20,36 @@
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Logga in -->
         <activity
             android:name="activity.RegisterActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan" />
+
+        <!-- Logga ut -->
         <activity
-            android:name=".loggaUt"
+            android:name="activity.LoggaUtAct"
             android:label="@string/app_name"
             android:launchMode="singleTop" />
 
+        <!-- HuvudMeny -->
         <activity
-            android:name=".meny"
-            android:label="@string/app_name"
-            android:launchMode="singleTop" />
-
-
-        <activity
-            android:name="camera.C_Activity"
+            android:name="activity.HuvudMenyAct"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
 
-        <!--'TEST2-->
+        <!-- Kamera -->
+        <activity
+            android:name="camera.C_Activity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            />
 
         <!-- Nytt recept -->
         <activity
@@ -79,11 +65,10 @@
             android:screenOrientation="portrait">
         </activity>
 
-
         <!-- Mina Recept -->
         <activity
-            android:name="activity.MinaReceptMenyAct"
-            android:label="Mina Recept"
+            android:name="activity.ReceptMenyAct"
+            android:label="Recept Meny"
             android:screenOrientation="portrait">
         </activity>
 
@@ -98,9 +83,9 @@
         <activity
             android:name="activity.AllaReceptAct"
             android:label="Alla Recept"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
         </activity>
-
 
     </application>
 
